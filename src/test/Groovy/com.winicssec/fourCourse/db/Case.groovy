@@ -2,6 +2,7 @@ package com.winicssec.fourCourse.db
 
 import org.junit.Assert
 import spock.lang.Specification
+import groovy.sql.Sql
 class Case extends Specification{
     DataRepository dataRepository
 
@@ -36,6 +37,16 @@ class Case extends Specification{
         dataRepository.addUser(userName, age)
         then: "should get added user successfully"
         Assert.assertEquals(dataRepository.getUser(userName).username, userName)
+        where:
+        userName | age
+        "Dave"   | 88
+    }
+    def "should update address successfully"() {
+        given: "no given"
+        when: "update user's address"
+        dataRepository.updateAddress(userName, age)
+        then: "should update address successfully"
+        Assert.assertEquals(dataRepository.getUser(userName).age, age)
         where:
         userName | age
         "MARY"   | 55

@@ -1,0 +1,11 @@
+active: dev
+dev:
+  db:
+    url: jdbc:mysql://127.0.0.1:3306/apitestdb
+    user: root
+    password: root
+stable:
+  db:
+    url: jdbc:mysql://127.0.0.1:3306/apitestdb
+    user: root
+    passowrd: root

@@ -1,23 +1,28 @@
 package com.winicssec.fourCourse.db
+import groovy.sql.Sql
 
-class DataRepository extends DataSource{
-    def getUserInfo(){
-        def userInfo = sql.rows(ConstantSql.getUserInfo)
-        userInfo ? userInfo : '' //这里做了空保护
+class DataRepository extends DataSourceNew{
+    def getUserInfo() {
+        def userInfo = sql.rows(ConstantSql.getUserInfo)   //查询多行数据
+        userInfo ? userInfo : ''  //这里做了空保护
     }
-    def getAddressByUserName(username){
-        def address = sql.firstRow(ConstantSql.getAddressInfoByUserName, [username])
-        //上面调用的sql语句需要传递一个参数，所以后面带了username参数
+
+    def getAddressByUserName(userName) {
+        def address = sql.firstRow(ConstantSql.getAddressInfoByUserName, [userName])  //只获取第一行数据
+        // 上面调用的getAddressInfoByUserName sql语句需要传递一个参数，所以在后面带了userName参数
         address ? address : ''
     }
-    def addUser(username, age){
-        sql.execute(ConstantSql.addUser, [username, age])
-        //非查询类操作使用execute方法
+
+    def addUser(userName,age) {
+        sql.execute(ConstantSql.addUser,[userName,age])   //传递两个参数
+        // 非查询类操作使用execute方法
     }
-    def getUser(userName){
-        sql.execute(ConstantSql.getUser, [userName])
+
+    def getUser(userName) {
+        sql.firstRow(ConstantSql.getUser,[userName])
     }
-    def updateAddress(userName, age){
-        sql.execute(ConstantSql.updateAge, [age, userName])
+
+    def updateAddress(userName,age) {
+        sql.execute(ConstantSql.updateAge,[age,userName])
     }
 }
