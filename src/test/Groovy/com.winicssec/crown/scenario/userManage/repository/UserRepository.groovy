@@ -20,7 +20,7 @@ class UserRepository extends CrownDataSource{
         crownDB.execute(insertRoleSql, [roleName])
     }
 
-    void deleteUserTableByUser(userName){
+    void deleteUserTableByUserName(userName){
         def deleteSysUserRoleSql = "delete from sys_user where login_name=?"
         crownDB.execute(deleteSysUserRoleSql,[userName])
     }
