@@ -5,6 +5,7 @@ import com.winicssec.crown.scenario.userManage.repository.UserRepository
 import com.winicssec.crown.scenario.userManage.requestBody.UserBody
 import com.winicssec.crown.scenario.userManage.service.UserService
 import com.winicssec.crown.testsuite.CrownTest
+import org.junit.Assert
 import org.junit.experimental.categories.Category
 import spock.lang.Specification
 @Category(CrownTest)
@@ -40,5 +41,37 @@ class AddUserTest extends Specification{
         when: "call add user api interface"
         userClient.addUser(addUserRolename,body)  //这里是addUser()方法实现调用添加user的方法
                 .statusCode(201)
+        then: "should add user in db successfully"
+        Assert.assertThat(userService.ifUserExist(loginName))
+        where:
+        addUserRoleName | addedUserRoleName      //这里通过data-driven的方式覆盖了系统中三个角色都能添加user的测试场景
+        "systemManager" | "roleManager"
+        "userManager"   | "roleManager"
+        "roleManager"   | "roleManager"
+    }
+
+    def "should add user failed when not filling all required information"(){
+        def roleIdList = userService.generateUserRoleList(addedUserRoleName)
+        given: "generate add user api request body"
+        loginName = userService.generateUniqueLoginName()
+        def body = new UserBody()
+                    .setUserLoginName(loginName)
+                    .setUserNickName(nickName)
+                    .setUserPhone(phone)
+                    .setUserEmail(email)
+                    .setRoleIdList(roleIdList)
+                    .getAddUserBody()
+        when: "call add user api interface"
+        userClient.addUser(addUserRoleName,body)
+                    .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
+                    .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
+        then: "should add user in db successfully"
+        Assert.assertThat(userService.ifUserExist(loginName))
+        where:
+        nickName   | phone         | email          | addedUserRoleName | addUserRoleName
+        ""         | "18181971234" | "test@163.com" | "roleManager"  | "systemManager"
+        "nickName" | ""            | "test@163.com" | "roleManager"  | "systemManager"
+        "nickName" | "18181971234" | ""             | "roleManager"  | "systemManager"
+        "nickName" | "18181971234" | "test@163.com" | ""         | "systemManager"
     }
 }

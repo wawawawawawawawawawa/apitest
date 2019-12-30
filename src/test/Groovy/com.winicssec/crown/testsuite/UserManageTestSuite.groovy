@@ -1,7 +1,7 @@
 package com.winicssec.crown.testsuite
 
 import com.winicssec.crown.scenario.userManage.testCase.AddUserTest
-import com.winicssec.crown.scenario.userManage.testCase.EditUserTest
+
 import com.winicssec.crown.scenario.userManage.testCase.ResetPasswordTest
 import com.winicssec.crown.scenario.userManage.testCase.SearchUserTest
 import com.winicssec.crown.scenario.userManage.testCase.UpdateUserStatusTest
