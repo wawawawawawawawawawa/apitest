@@ -8,7 +8,7 @@ class CrownDataSource {
 
     CrownDataSource(){
         configParse = new ConfigParse()
-        configs = configParse.getCrownFileService()
+        configs = configParse.getGlobalConfig()
     }
 
     Sql getCrownDB(){

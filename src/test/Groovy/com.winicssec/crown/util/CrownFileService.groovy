@@ -16,7 +16,7 @@ class CrownFileService {
         csvParser = new CsvParser()
     }
 
-    def creatFile(path){
+    def createFile(path){
         new File(path)
     }
 
@@ -25,7 +25,7 @@ class CrownFileService {
     }
 
     def getConfigs(String ymlFilePath){
-        def configs = yml(creatFile(ymlFilePath).text)
+        def configs = yml(createFile(ymlFilePath).text)
         configs
     }
 

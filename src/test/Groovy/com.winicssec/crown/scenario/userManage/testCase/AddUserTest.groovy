@@ -34,15 +34,15 @@ class AddUserTest extends Specification{
         def body = new UserBody()
                 .setUserLoginName(loginName)
                 .setUserNickName("abc123NickName")
-                .setUserPhone("12315641")
+                .setUserPhone("18181971234")
                 .setUserEmail("test@163.com")
                 .setRoleIdList(roleIdList)
                 .getAddUserBody()   //采用build模式构造接口的request body
         when: "call add user api interface"
-        userClient.addUser(addUserRolename,body)  //这里是addUser()方法实现调用添加user的方法
+        userClient.addUser(addUserRoleName,body)  //这里是addUser()方法实现调用添加user的方法
                 .statusCode(201)
         then: "should add user in db successfully"
-        Assert.assertThat(userService.ifUserExist(loginName))
+        Assert.assertTrue(userService.ifUserExist(loginName))
         where:
         addUserRoleName | addedUserRoleName      //这里通过data-driven的方式覆盖了系统中三个角色都能添加user的测试场景
         "systemManager" | "roleManager"
@@ -66,7 +66,7 @@ class AddUserTest extends Specification{
                     .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
                     .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
         then: "should add user in db successfully"
-        Assert.assertThat(userService.ifUserExist(loginName))
+        Assert.assertTrue(userService.ifUserExist(loginName))
         where:
         nickName   | phone         | email          | addedUserRoleName | addUserRoleName
         ""         | "18181971234" | "test@163.com" | "roleManager"  | "systemManager"

@@ -9,31 +9,32 @@ class LoginClient {
     GlobalUserService globalUserService
     ConfigParse configParse
 
-    LoginClient(){
+    LoginClient() {
         globalUserService = new GlobalUserService()
         configParse = new ConfigParse()
     }
 
-    def clientWithSpecialRole(roleName){
+    def clientWithSpecialRole(roleName) {
         def userInfo = globalUserService.getUserInfoByRole(roleName)
-        setDefaultUriAndContentType().header("Authorization",getTokenByUser(userInfo.userName, userInfo.password))
+        setDefaultUriAndContentType()
+                .header("Authorization", getTokenByUser(userInfo.userName, userInfo.password))
     }
 
-    private def getTokenByUser(userName,password){
+    private def getTokenByUser(userName, password) {
         HashMap userMap = new HashMap()
-        userMap.put("loginName",userName)
-        userMap.put("password",password)
+        userMap.put("loginName", userName)
+        userMap.put("password", password)
         def token = setDefaultUriAndContentType()
-                    .body(userMap)
-                    .post("account/token")
-                    .then().assertThat().statusCode(200)
-                    .extract().response().path("result.token")
-        token = "Bearer" + token
+                .body(userMap)
+                .post("/account/token")
+                .then().assertThat().statusCode(200)
+                .extract().response().path("result.token")
+        token = "Bearer " + token
         token
     }
 
-    private def setDefaultUriAndContentType(contentType="application/json"){
-        given().baseUri((String)configParse.getGlobalConfig().baseUrl)
-                .header("Content-Type",contentType)
+    private def setDefaultUriAndContentType(contentType = "application/json") {
+        given().baseUri((String) configParse.getGlobalConfig().baseUrl)
+                .header("Content-Type", contentType)
     }
 }
