@@ -1,23 +1,23 @@
 package com.winicssec.crown.scenario.userManage.requestBody
 
 class UserBody {
-    def userInfo = [:]
-    def roleIdList = [:]
+    def userInfo=[:]
+    def roleIdList=[]
     UserManageTemplate userManageTemplate
 
-    UserBody(){
+    UserBody() {
         userManageTemplate = new UserManageTemplate()
     }
-
-    def setUserLoginName(loginName){
-        this.userInfo.LoginName = loginName
+    def setUserLoginName(loginName) {
+        this.userInfo.loginName=loginName
         this
     }
 
     def setUserNickName(nickName){
-        this.userInfo.nickName = nickName
+        this.userInfo.nickName=nickName
         this
     }
+
     def setUserPhone(phone){
         this.userInfo.phone=phone
         this

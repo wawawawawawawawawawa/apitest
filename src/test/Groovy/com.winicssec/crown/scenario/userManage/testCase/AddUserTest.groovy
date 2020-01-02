@@ -64,7 +64,6 @@ class AddUserTest extends Specification{
         when: "call add user api interface"
         userClient.addUser(addUserRoleName,body)
                     .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
-                    .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
         then: "should add user in db successfully"
         Assert.assertTrue(userService.ifUserExist(loginName))
         where:
