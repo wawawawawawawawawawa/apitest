@@ -8,5 +8,5 @@
   "nickname": "$userInfo.nickName",
   "phone": "$userInfo.phone",
   "email": "$userInfo.email",
-  "roleIds": "$roleIdList"
+  "roleIds": $roleIdList
 }

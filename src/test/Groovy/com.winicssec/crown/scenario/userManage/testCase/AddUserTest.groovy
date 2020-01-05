@@ -50,27 +50,27 @@ class AddUserTest extends Specification{
         "roleManager"   | "roleManager"
     }
 
-    def "should add user failed when not filling all required information"(){
+    def "should add user failed when not filling all required information"() {
         def roleIdList = userService.generateUserRoleList(addedUserRoleName)
         given: "generate add user api request body"
         loginName = userService.generateUniqueLoginName()
         def body = new UserBody()
-                    .setUserLoginName(loginName)
-                    .setUserNickName(nickName)
-                    .setUserPhone(phone)
-                    .setUserEmail(email)
-                    .setRoleIdList(roleIdList)
-                    .getAddUserBody()
+                .setUserLoginName(loginName)
+                .setUserNickName(nickName)
+                .setUserPhone(phone)
+                .setUserEmail(email)
+                .setRoleIdList(roleIdList)
+                .getAddUserBody()
         when: "call add user api interface"
-        userClient.addUser(addUserRoleName,body)
-                    .statusCode(400)            //因为是异常测试，所以校验被添加的用户没有添加成功
+        userClient.addUser(addUserRoleName, body)
+                .statusCode(400)
         then: "should add user in db successfully"
-        Assert.assertTrue(userService.ifUserExist(loginName))
+        Assert.assertFalse(userService.ifUserExist(loginName))
         where:
         nickName   | phone         | email          | addedUserRoleName | addUserRoleName
-        ""         | "18181971234" | "test@163.com" | "roleManager"  | "systemManager"
-        "nickName" | ""            | "test@163.com" | "roleManager"  | "systemManager"
-        "nickName" | "18181971234" | ""             | "roleManager"  | "systemManager"
-        "nickName" | "18181971234" | "test@163.com" | ""         | "systemManager"
+        ""         | "18181971234" | "test@163.com" | "systemManager"   | "systemManager"
+        "nickName" | ""            | "test@163.com" | "systemManager"   | "systemManager"
+//        "nickName" | "18181971234" | ""             | "systemManager"  | "systemManager"
+
     }
 }

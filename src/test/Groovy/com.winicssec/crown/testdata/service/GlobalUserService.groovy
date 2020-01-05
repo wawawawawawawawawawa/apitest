@@ -15,15 +15,15 @@ class GlobalUserService {
         crownFileService = new CrownFileService()
     }
 
-    private def getAllUserInfo(){
+    private def getAllUserInfo() {
         crownFileService.getCsvFileContent("src/test/resources/crown/data/user.csv", ",")
     }
 
     private def getAllRoleMenuInfo(){
         crownFileService.getCsvFileContent("src/test/resources/crown/data/role.csv", ",")
     }
-    def getUserInfoByRole(roleName){
-        getAllUserInfo().find{it -> it.roleName == roleName}
+    def getUserInfoByRole(roleName) {
+        getAllUserInfo().find { it -> it.roleName == roleName }
     }
 
     private void  addGlobalUsers() {
