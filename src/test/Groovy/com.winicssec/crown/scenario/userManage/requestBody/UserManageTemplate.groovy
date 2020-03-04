@@ -13,5 +13,6 @@ class UserManageTemplate {
         velocityContext.put("roleIdList",addUserBody.roleIdList)
         velocityEngine.getTemplate("src/test/resources/crown/body/userManage/addUserBodyTemplate.json").merge(velocityContext, stringWriter)
         stringWriter.toString()
+        // 上面四行属于固定写法，目的是把数据对象UserBody和模版文件进行merge
     }
 }

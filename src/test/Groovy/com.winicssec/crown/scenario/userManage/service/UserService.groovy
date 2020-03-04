@@ -7,14 +7,14 @@ class UserService {
     UserRepository userRepository
 
     UserService(){
-        userRepository = new UserRepository()
+        userRepository = new UserRepository()  //用于查询数据
     }
 
-    boolean ifUserExist(def loginName){
+    boolean ifUserExist(def loginName){   //判断用户是否已经存在，大部分系统中不允许重复用户存在
         userRepository.getUserInfoByUserName(loginName) ? true : false
     }
 
-    def getEncryptPassword(password, loginName){
+    def getEncryptPassword(password, loginName){  //用户名密码加密
         Md5Crypt.apr1Crypt(password, loginName)
     }
 
@@ -25,12 +25,12 @@ class UserService {
         }
     }
 
-    void deleteUser(def loginName){
+    void deleteUser(def loginName){  //删除用户
         userRepository.deleteUserRoleTableByUserName(loginName)
         userRepository.deleteUserTableByUserName(loginName)
     }
 
-    def generateUniqueLoginName(){
+    def generateUniqueLoginName(){   //产生不重复用户名
         boolean ifContinue
         def loginName
         ifContinue = true
@@ -42,7 +42,7 @@ class UserService {
         }
         loginName
     }
-    def generateUserRoleList(roleName){
+    def generateUserRoleList(roleName){  //生成角色列表
         def roleList = []
         roleList[0] = (userRepository.getRoleInfoByRoleName(roleName)).id
         roleList

@@ -1,5 +1,7 @@
 package com.winicssec.crown.util
-
+/**
+ * 此类是Groovy连接数据库的固定写法
+ */
 import groovy.sql.Sql
 class CrownDataSource {
     Sql crownDB

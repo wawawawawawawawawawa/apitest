@@ -2,6 +2,7 @@ package com.winicssec.firstCourse
 
 import spock.lang.Specification
 import static io.restassured.RestAssured.given
+//两份文档，Groovy和rest  assured
 
 class FirstDemo extends Specification{
     def "should call mock api successfully"(){  //spock框架(BDD框架)语法，所有case都是def开头，def后面是case 的描述信息

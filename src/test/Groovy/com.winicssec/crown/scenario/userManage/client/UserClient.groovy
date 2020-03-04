@@ -3,6 +3,10 @@ package com.winicssec.crown.scenario.userManage.client
 import com.winicssec.crown.util.login.LoginClient
 import groovy.json.JsonSlurper
 
+/**
+ * 此类用于调用各类测试接口
+ */
+
 class UserClient {
     LoginClient loginClient
     JsonSlurper jsonSlurper
