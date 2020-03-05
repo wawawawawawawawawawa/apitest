@@ -36,7 +36,7 @@ class GetDataClient {
                 .auth().preemptive().basic(users.username, users.password)
                 .when()
                 .get("/api/getData")
-                .then().assertThat().statusCode(200)
+                .then().assertThat().statusCode(404)
                 .extract().response().getBody().asString()
         println res
     }
